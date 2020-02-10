@@ -1,16 +1,30 @@
-function handleSubmit(event) {
-    event.preventDefault()
+const submit_btn = document.querySelector("#submit");
+const input_value = document.querySelector("#text");
 
-    // check what text was put into the form field
-    let formText = document.getElementById('name').value
-    checkForName(formText)
+//sumbit text to the server
+const submit = event => {
+  event.preventDefault();
+  postdata("/", input_value.value);
+};
 
-    console.log("::: Form Submitted :::")
-    fetch('http://localhost:8080/test')
-    .then(res => res.json())
-    .then(function(res) {
-        document.getElementById('results').innerHTML = res.message
-    })
-}
+const postdata = async (url, data) => {
+  const res = await fetch(url, {
+    method: "post",
+    mode: "cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+  try {
+    const server_res = await res.JSON.parse();
+    console.log(server_res);
+  } catch (err) {
+    console.log("error at line 19 try block", err);
+  }
+};
 
-export { handleSubmit }
+//listen for a click on submit button
+submit_btn.addEventListener("click", submit);
+export { submit, postdata };
