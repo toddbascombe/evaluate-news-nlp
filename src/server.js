@@ -31,16 +31,20 @@ app.post("/", async (req, res) => {
       mode: "document"
     },
     function(error, response) {
-      if (error === null) {
+      if (error === null && !(response === null) && !(response === undefined)) {
         projectData.ai_info = response;
         return response;
+      } else {
+        const errors =
+          "Can not analyze current article, please check the url and try again";
+        projectData.errors = errors;
+        return errors;
       }
     }
   );
 });
 
 app.get("/data", (req, res) => {
-  console.log(projectData.ai_info);
   res.send([projectData]);
 });
 

@@ -1,6 +1,7 @@
 const user_input = document.querySelector("#article");
 const submit_btn = document.querySelector("#submit");
-const result = document.querySelector("#result");
+const result = document.querySelector("#results");
+const loader = document.querySelector(".loader");
 
 const submit_user_value = event => {
   event.preventDefault();
@@ -29,18 +30,26 @@ const postData = async (url = "", data = {}) => {
 };
 
 const server_data = async () => {
-  await fetch("/data",{
-    method:"GET",
+  await fetch("/data", {
+    method: "GET",
     mode: "cors",
     cache: "no-cache",
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json"
-    },
+    }
   }).then(value => {
-    console.log(value)
-    result.textContent =value
+    value.json().then(data => {
+      if (data[0].errors === undefined || data[0].errors === null)
+        result.textContent = `${data[0].ai_info.text}`;
+      else result.textContent = `${data[0].errors}`;
+    });
   });
 };
 
 submit_btn.addEventListener("click", submit_user_value);
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    loader.setAttribute("style", "display: none;");
+  }, 1500);
+});

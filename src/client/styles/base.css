@@ -1,14 +1,64 @@
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(158deg, #8e1717, #24c9db);
+  background-size: 300% 300%;
+  -webkit-animation: AnimationName 11s ease infinite;
+  -moz-animation: AnimationName 11s ease infinite;
+  -o-animation: AnimationName 11s ease infinite;
+  animation: AnimationName 11s ease infinite;
+}
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 42% 0%;
+  }
+  50% {
+    background-position: 59% 100%;
+  }
+  100% {
+    background-position: 42% 0%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 42% 0%;
+  }
+  50% {
+    background-position: 59% 100%;
+  }
+  100% {
+    background-position: 42% 0%;
+  }
+}
+@-o-keyframes AnimationName {
+  0% {
+    background-position: 42% 0%;
+  }
+  50% {
+    background-position: 59% 100%;
+  }
+  100% {
+    background-position: 42% 0%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 42% 0%;
+  }
+  50% {
+    background-position: 59% 100%;
+  }
+  100% {
+    background-position: 42% 0%;
+  }
 }
 
 main {
-    flex: 2;
+  flex: 2;
 }
 
 section {
-    max-width: 800px;
-    margin: 50px auto;
+  max-width: 800px;
+  margin: 50px auto;
 }
