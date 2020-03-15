@@ -30,10 +30,10 @@ app.post("/", async (req, res) => {
       url: data,
       mode: "document"
     },
-    function(error, response) {
-      if (error === null && !(response === null) && !(response === undefined)) {
-        projectData.ai_info = response;
-        return response;
+    async function(error, response) {
+      if (error === null) {
+        projectData.ai_info = await response;
+        return await response;
       } else {
         const errors =
           "Can not analyze current article, please check the url and try again";
