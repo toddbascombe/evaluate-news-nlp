@@ -32,8 +32,10 @@ app.post("/", async (req, res) => {
     },
     async function(error, response) {
       if (error === null) {
-        projectData.ai_info = await response;
-        return await response;
+        delete projectData.ai_info;
+        delete projectData.errors;
+        projectData.ai_info = response;
+        return response;
       } else {
         const errors =
           "Can not analyze current article, please check the url and try again";
