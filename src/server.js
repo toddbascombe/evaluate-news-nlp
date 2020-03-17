@@ -32,8 +32,6 @@ app.post("/", async (req, res) => {
     },
     async function(error, response) {
       if (error === null) {
-        delete projectData.ai_info;
-        delete projectData.errors;
         projectData.ai_info = response;
         return response;
       } else {

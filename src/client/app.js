@@ -2,18 +2,44 @@ const user_input = document.querySelector("#article");
 const submit_btn = document.querySelector("#submit");
 const result = document.querySelector("#results");
 const loader = document.querySelector(".loader");
+const div_error = document.querySelector(".error_message");
+const form = document.querySelector(".blog_article");
 
 const submit_user_value = event => {
   event.preventDefault();
-  if (result.children.length > 0) {
-    for (let i = 0; i <= result.children.length; i++) {
-      result.children[i].remove();
+  const regexExp = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+  const regex = new RegExp(regexExp);
+  if (user_input.value.match(regex)) {
+    if (result.childElementCount > 0) {
+      const list = document.querySelectorAll(".item");
+      const list2 = document.querySelectorAll(".form_style_card");
+      remove_NodeLists(list);
+      remove_NodeLists(list2);
     }
+    postData("/", { value: user_input.value });
+    message_display_card(
+      "",
+      "div_loader",
+      "<img src='./images/Infinity.svg' />"
+    );
+    const div_loader = document.querySelector(".div_loader");
+    result.setAttribute("style", "background-color: #f1f2f3");
+    setTimeout(() => {
+      div_loader.remove();
+      server_data();
+    }, 1000);
+  } else {
+    message_display_card(
+      "error you must enter a url with: (http or https)://www.google.com",
+      "error_m",
+      (image = ""),
+      false
+    );
+    const error_m = document.querySelector(".error_m");
+    setTimeout(() => {
+      error_m.remove();
+    }, 3000);
   }
-  const value = user_input.value;
-  console.log(value);
-  postData("/", { value: value });
-  server_data();
 };
 
 const postData = async (url = "", data = {}) => {
@@ -28,22 +54,14 @@ const postData = async (url = "", data = {}) => {
     body: JSON.stringify(data)
   });
   try {
-    console.log(response);
+    return response;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
 
 const server_data = async () => {
-  await fetch("/data", {
-    method: "GET",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  }).then(value => {
+  await fetch("/data").then(value => {
     value.json().then(data => {
       if (data[0].errors === undefined || data[0].errors === null) {
         cards_for_data(data[0].ai_info);
@@ -58,12 +76,24 @@ const server_data = async () => {
   });
 };
 
-const message_display_card = (text, classname) => {
+const message_display_card = (
+  text = "",
+  classname,
+  image = "",
+  toResult = true
+) => {
   const div = document.createElement("div");
   div.className = classname;
-  const textContent = document.createTextNode(text);
-  div.appendChild(textContent);
-  result.appendChild(div);
+  if (text.length > 1) {
+    div.textContent = text;
+  } else {
+    div.innerHTML = image;
+  }
+  if (toResult) {
+    result.appendChild(div);
+  } else {
+    form.appendChild(div);
+  }
 };
 
 const stat_card = (title, text, anotherText, classname) => {
@@ -93,14 +123,19 @@ const cards_for_data = ({
 }) => {
   stat_card("Polarity", polarity, Math.round(polarity_confidence * 100) + "%", [
     "statCard",
-    "individCard"
+    "individCard",
+    "item"
   ]);
   stat_card(
     "Subjectivity",
     subjectivity,
     Math.round(subjectivity_confidence * 100) + "%",
-    ["statCard", "individCard"]
+    ["statCard", "individCard", "item"]
   );
+};
+
+const remove_NodeLists = nodeList => {
+  nodeList.forEach(value => value.remove());
 };
 
 submit_btn.addEventListener("click", submit_user_value);
