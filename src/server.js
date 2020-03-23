@@ -20,7 +20,7 @@ const textapi = new AYLIENTextAPI({
 });
 
 app.get("/", (req, res) => {
-  res.send("index.html");
+  res.send("dist/index.html");
 });
 
 app.post("/", async (req, res) => {

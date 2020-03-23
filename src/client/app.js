@@ -2,8 +2,12 @@ const user_input = document.querySelector("#article");
 const submit_btn = document.querySelector("#submit");
 const result = document.querySelector("#results");
 const loader = document.querySelector(".loader");
-const div_error = document.querySelector(".error_message");
-const form = document.querySelector(".blog_article");
+
+import {
+  remove_NodeLists,
+  cards_for_data,
+  message_display_card
+} from "./js/utils";
 
 const submit_user_value = event => {
   event.preventDefault();
@@ -74,68 +78,6 @@ const server_data = async () => {
       }
     });
   });
-};
-
-const message_display_card = (
-  text = "",
-  classname,
-  image = "",
-  toResult = true
-) => {
-  const div = document.createElement("div");
-  div.className = classname;
-  if (text.length > 1) {
-    div.textContent = text;
-  } else {
-    div.innerHTML = image;
-  }
-  if (toResult) {
-    result.appendChild(div);
-  } else {
-    form.appendChild(div);
-  }
-};
-
-const stat_card = (title, text, anotherText, classname) => {
-  const titleDiv = document.createElement("div");
-  const div = document.createElement("div");
-  const innerDiv = document.createElement("div");
-  div.classList.add(...classname);
-  innerDiv.className = "dataStat";
-  titleDiv.className = "title";
-  const titleConent = document.createTextNode(title);
-  const textContent = document.createTextNode(text);
-  const textContent2 = document.createTextNode(anotherText);
-  div.appendChild(titleDiv);
-  div.appendChild(textContent);
-  titleDiv.appendChild(titleConent);
-  innerDiv.appendChild(textContent2);
-  div.appendChild(innerDiv);
-
-  result.appendChild(div);
-};
-
-const cards_for_data = ({
-  polarity,
-  subjectivity,
-  polarity_confidence,
-  subjectivity_confidence
-}) => {
-  stat_card("Polarity", polarity, Math.round(polarity_confidence * 100) + "%", [
-    "statCard",
-    "individCard",
-    "item"
-  ]);
-  stat_card(
-    "Subjectivity",
-    subjectivity,
-    Math.round(subjectivity_confidence * 100) + "%",
-    ["statCard", "individCard", "item"]
-  );
-};
-
-const remove_NodeLists = nodeList => {
-  nodeList.forEach(value => value.remove());
 };
 
 submit_btn.addEventListener("click", submit_user_value);

@@ -4,12 +4,12 @@ body {
   min-height: 100vh;
   background: linear-gradient(158deg, #8e1717, #24c9db);
   background-size: 300% 300%;
-  -webkit-animation: AnimationName 11s ease infinite;
-  -moz-animation: AnimationName 11s ease infinite;
-  -o-animation: AnimationName 11s ease infinite;
-  animation: AnimationName 11s ease infinite;
+  -webkit-animation: breathing 11s ease infinite;
+  -moz-animation: breathing 11s ease infinite;
+  -o-animation: breathing 11s ease infinite;
+  animation: breathing 11s ease infinite;
 }
-@-webkit-keyframes AnimationName {
+@-webkit-keyframes breathing {
   0% {
     background-position: 42% 0%;
   }
@@ -20,7 +20,7 @@ body {
     background-position: 42% 0%;
   }
 }
-@-moz-keyframes AnimationName {
+@-moz-keyframes breathing {
   0% {
     background-position: 42% 0%;
   }
@@ -31,7 +31,7 @@ body {
     background-position: 42% 0%;
   }
 }
-@-o-keyframes AnimationName {
+@-o-keyframes breathing {
   0% {
     background-position: 42% 0%;
   }
@@ -42,7 +42,7 @@ body {
     background-position: 42% 0%;
   }
 }
-@keyframes AnimationName {
+@keyframes breathing {
   0% {
     background-position: 42% 0%;
   }
