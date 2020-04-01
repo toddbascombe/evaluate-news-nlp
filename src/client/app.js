@@ -86,3 +86,5 @@ window.addEventListener("load", () => {
     loader.setAttribute("style", "display: none;");
   }, 1500);
 });
+
+export {submit_user_value, server_data, postData}
