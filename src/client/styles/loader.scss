@@ -4,15 +4,15 @@
   height: 100%;
   background-color: #f1f2f3;
 
+  img {
+    position: relative;
+    top: 40%;
+    left: 40%;
+  }
 }
 
-.loader img {
-  position: relative;
-  top: 40%;
-  left: 40%;
-}
-
-.div_loader {
+#div_loader {
+  display: none;
   position: relative;
   width: 100%;
   left: 40%;

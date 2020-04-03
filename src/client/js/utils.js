@@ -1,5 +1,6 @@
 const div_error = document.querySelector(".error_message");
 const form = document.querySelector(".blog_article");
+const results = document.querySelector("#results");
 
 /**
  * Remove all the element in the Array
@@ -49,7 +50,7 @@ const stat_card = (title, text, anotherText, classname) => {
   innerDiv.appendChild(textContent2);
   div.appendChild(innerDiv);
 
-  result.appendChild(div);
+  results.appendChild(div);
 };
 
 /**
@@ -73,7 +74,7 @@ const message_display_card = (
     div.innerHTML = image;
   }
   if (toResult) {
-    result.appendChild(div);
+    results.appendChild(div);
   } else {
     form.appendChild(div);
   }

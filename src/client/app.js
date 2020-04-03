@@ -17,26 +17,20 @@ const submit_user_value = event => {
     if (result.childElementCount > 0) {
       const list = document.querySelectorAll(".item");
       const list2 = document.querySelectorAll(".form_style_card");
-      remove_NodeLists(list);
-      remove_NodeLists(list2);
+      Client.remove_NodeLists(list);
+      Client.remove_NodeLists(list2);
     }
-    postData("/", { value: user_input.value });
-    message_display_card(
-      "",
-      "div_loader",
-      "<img src='./images/Infinity.svg' />"
-    );
-    const div_loader = document.querySelector(".div_loader");
+    Client.postData("/", { value: user_input.value });
+    const div_loader = document.querySelector("#div_loader");
     result.setAttribute("style", "background-color: #f1f2f3");
     setTimeout(() => {
       div_loader.remove();
-      server_data();
+      Client.server_data();
     }, 1000);
   } else {
-    message_display_card(
+    Client.message_display_card(
       "error you must enter a url with: (http or https)://www.google.com",
       "error_m",
-      (image = ""),
       false
     );
     const error_m = document.querySelector(".error_m");
@@ -68,18 +62,17 @@ const server_data = async () => {
   await fetch("/data").then(value => {
     value.json().then(data => {
       if (data[0].errors === undefined || data[0].errors === null) {
-        cards_for_data(data[0].ai_info);
-        message_display_card(
+        Client.cards_for_data(data[0].ai_info);
+        Client.message_display_card(
           `Article Text: ${data[0].ai_info.text}`,
           "form_style_card"
         );
       } else {
-        message_display_card(`${data[0].errors}`, "form_style_card");
+        Client.message_display_card(`${data[0].errors}`, "form_style_card");
       }
     });
   });
 };
-
 submit_btn.addEventListener("click", submit_user_value);
 window.addEventListener("load", () => {
   setTimeout(() => {
@@ -87,4 +80,4 @@ window.addEventListener("load", () => {
   }, 1500);
 });
 
-export {submit_user_value, server_data, postData}
+export { submit_user_value, server_data, postData };
