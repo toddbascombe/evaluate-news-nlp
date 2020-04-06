@@ -17,18 +17,19 @@ const submit_user_value = event => {
     if (result.childElementCount > 0) {
       const list = document.querySelectorAll(".item");
       const list2 = document.querySelectorAll(".form_style_card");
-      Client.remove_NodeLists(list);
-      Client.remove_NodeLists(list2);
+      remove_NodeLists(list);
+      remove_NodeLists(list2);
     }
-    Client.postData("/", { value: user_input.value });
+    postData("/", { value: user_input.value });
     const div_loader = document.querySelector("#div_loader");
+    div_loader.style.cssText="display: block;";
     result.setAttribute("style", "background-color: #f1f2f3");
     setTimeout(() => {
-      div_loader.remove();
-      Client.server_data();
+      div_loader.style.cssText="display: none;";
+      server_data();
     }, 1000);
   } else {
-    Client.message_display_card(
+    message_display_card(
       "error you must enter a url with: (http or https)://www.google.com",
       "error_m",
       false
@@ -62,13 +63,13 @@ const server_data = async () => {
   await fetch("/data").then(value => {
     value.json().then(data => {
       if (data[0].errors === undefined || data[0].errors === null) {
-        Client.cards_for_data(data[0].ai_info);
-        Client.message_display_card(
+        cards_for_data(data[0].ai_info);
+        message_display_card(
           `Article Text: ${data[0].ai_info.text}`,
           "form_style_card"
         );
       } else {
-        Client.message_display_card(`${data[0].errors}`, "form_style_card");
+        message_display_card(`${data[0].errors}`, "form_style_card");
       }
     });
   });
