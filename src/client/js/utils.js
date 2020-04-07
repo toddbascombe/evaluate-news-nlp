@@ -55,10 +55,10 @@ const stat_card = (title, text, anotherText, classname) => {
 
 /**
  *
- * @param {*} text
- * @param {*} classname
- * @param {*} image
- * @param {*} toResult
+ * @param {*} text (String) information in the card
+ * @param {*} classname (Array) of class names
+ * @param {*} image (string) image element
+ * @param {*} toResult (boolean)
  */
 const message_display_card = (
   text = "",

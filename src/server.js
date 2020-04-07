@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 const express = require("express");
 const app = express();
@@ -26,21 +27,23 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
   const data = req.body.value;
   await textapi.sentiment(
-    {
-      url: data,
-      mode: "document"
-    },
-    async function(error, response) {
-      if (error === null) {
-        projectData.ai_info = response;
-        return response;
-      } else {
-        const errors =
-          "Can not analyze current article, please check the url and try again";
-        projectData.errors = errors;
-        return errors;
+      {
+        url: data,
+        mode: "document"
+      },
+      function(error, response) {
+        if (error === null) {
+          res.json({response});
+          projectData.ai_info = response;
+          return response;
+        } else {
+          res.json({error});
+          const errors =
+              "Can not analyze current article, please check the url and try again";
+          projectData.errors = errors;
+          return errors;
+        }
       }
-    }
   );
 });
 

@@ -7,8 +7,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 
-//TODO: fix the config for functionality
-
 
 
 module.exports = {
