@@ -49,9 +49,20 @@ const stat_card = (title, text, anotherText, classname) => {
   titleDiv.appendChild(titleConent);
   innerDiv.appendChild(textContent2);
   div.appendChild(innerDiv);
-
+  input_test_stat_card()
   results.appendChild(div);
 };
+
+
+const input_test_stat_card = (title, text, anotherText, classname) =>{
+  if(title && test && anotherText && classname){
+    return "success"
+  }else{
+    return 'error'
+  }
+}
+
+module.exports = input_test_stat_card;
 
 /**
  *
